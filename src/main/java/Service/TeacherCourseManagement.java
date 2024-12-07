@@ -13,7 +13,7 @@ public interface TeacherCourseManagement {
     void editCourse(String newName,String courseId,  String newDepartment, String newLevel);
     void removeCourse(String courseId);
 
-    // các phương thức hỗ trọ về coures
+    // các phương thức hỗ trợ về coures
     Course findCourseById(String courseId);
     List<Course> getAllCourses();
     void saveCourseToFile(List<Course> courses);
