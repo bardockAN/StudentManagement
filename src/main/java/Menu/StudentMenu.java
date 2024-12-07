@@ -34,7 +34,6 @@ public class StudentMenu {
         }
     }
 
-
     private void displayUndergraduateMenu() {
         while (true) {
             System.out.println("\nOptions:");
@@ -70,7 +69,6 @@ public class StudentMenu {
             }
         }
     }
-
 
     private void displayGraduateMenu() {
         while (true) {
@@ -148,7 +146,6 @@ public class StudentMenu {
         }
     }
 
-
     private void saveThesisTopicToFile(String studentId, String thesisTopic) {
         String filePath = "D:\\Java\\StudentManagement\\src\\main\\database\\thesisTopic.csv";
         try (FileWriter writer = new FileWriter(filePath, true)) {
@@ -158,7 +155,6 @@ public class StudentMenu {
             System.out.println("Error saving thesis topic: " + e.getMessage());
         }
     }
-
 
     private void viewAvailableSections() {
         System.out.println("All sections:");
@@ -242,7 +238,6 @@ public class StudentMenu {
             System.out.println("-------------------------------");
         }
     }
-
 
     private void unrollFromSection() {
         System.out.println("\nYour Enrolled Sections:");

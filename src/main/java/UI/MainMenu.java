@@ -86,10 +86,10 @@ public class MainMenu {
                     System.out.println("Error: No student found for this account. Please contact admin.");
                     return;
                 }
-                new StudentMenu(studentCourseManagement, loggedInStudent).displayMenu(); // Show student menu
+                new StudentMenu(studentCourseManagement, loggedInStudent).displayMenu();
             } else {
                 TeacherCourseManagementImpl teacherCourseManagement = new TeacherCourseManagementImpl();
-                Teacher loggedInTeacher = teacherCourseManagement.findTeacherByUsername(username, password); // Chú ý thay đổi ở đây
+                Teacher loggedInTeacher = teacherCourseManagement.findTeacherByUsername(username, password);
                 if (loggedInTeacher == null) {
                     System.out.println("Error: No teacher found for this account. Please contact admin.");
                     return;
@@ -207,8 +207,6 @@ public class MainMenu {
         System.out.println("Student registration successful!");
     }
 
-
-
     private static void registerTeacher() {
         System.out.print("\nEnter username: ");
         String username = scanner.nextLine();
@@ -235,9 +233,7 @@ public class MainMenu {
         }
 
         Teacher teacher = new Teacher(name, id, dob);
-
         new TeacherCourseManagementImpl().saveTeacherToCSV(username, password, teacher);
-
         saveToFileForStudent(TEACHER_REGISTER_FILE_PATH, username, password);
         System.out.println("Teacher registration successful!");
     }
@@ -258,7 +254,7 @@ public class MainMenu {
 
     private static void saveToFileForStudent(String filePath, String username, String password) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(username + "," + password); // Lưu username và password
+            writer.write(username + "," + password);
             writer.newLine();
         } catch (IOException e) {
             System.out.println("Error saving to file: " + e.getMessage());
@@ -273,6 +269,5 @@ public class MainMenu {
             System.out.println("Error saving to file: " + e.getMessage());
         }
     }
-
 
 }

@@ -5,8 +5,7 @@ public class Course {
     private String name;
     private String courseId;
     private String department;
-    private String level;  // "grad" or "undergrad"
-
+    private String level;
     public Course(String name, String courseId, String department, String level) {
         this.name = name;
         this.courseId = courseId;
@@ -14,7 +13,6 @@ public class Course {
         this.level = level;
     }
 
-    // Getters and Setters
     public String getName() {
         return name;
     }

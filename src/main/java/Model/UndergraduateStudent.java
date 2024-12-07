@@ -11,7 +11,6 @@ public class UndergraduateStudent extends Person {
         this.undergraduateMajor = undergraduateMajor;
     }
 
-    // Getter and Setter for major
     public String getUndergraduateMajor() {
         return undergraduateMajor;
     }

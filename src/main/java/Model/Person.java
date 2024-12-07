@@ -6,7 +6,7 @@ import java.util.Date;
 public class Person {
     private String name;
     private String id;
-    private Date dOb;  // Changed from int age
+    private Date dOb;
 
     public Person(String name, String id, Date dOb) {
         this.name = name;

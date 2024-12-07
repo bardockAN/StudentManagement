@@ -9,5 +9,4 @@ public class Teacher extends Person {
         super(name, id, dOb);
     }
 
-
 }

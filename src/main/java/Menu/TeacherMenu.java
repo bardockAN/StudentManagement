@@ -120,7 +120,6 @@ public class    TeacherMenu {
         }
     }
 
-
     private void addSection() {
         System.out.print("Enter Course ID for the section: ");
         String courseId = scanner.nextLine();
@@ -160,8 +159,6 @@ public class    TeacherMenu {
         System.out.print("Enter Academic Year: ");
         int academicYear = scanner.nextInt();
         scanner.nextLine();
-
-        // Tìm Section để sửa
         Section section = courseManagement.findSectionByCourseAndSemester(courseId, semester, academicYear);
         if (section != null) {
             System.out.print("Enter new start date (dd/MM/yyyy): ");
@@ -170,22 +167,13 @@ public class    TeacherMenu {
             String endDateStr = scanner.nextLine();
             System.out.println("Enter new Lecturer's Name: ");
 
-
             try {
                 Date newStartDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDateStr);
                 Date newEndDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateStr);
-
-                // Chỉnh sửa thông tin Section
                 courseManagement.editSection(courseId, semester, academicYear, newStartDate, newEndDate);
-
-                // Sau khi chỉnh sửa, lấy lại danh sách các sections đã được cập nhật
                 List<Section> sections = courseManagement.getAllSections();
-
-                // Lưu lại thông tin Section vào file sau khi sửa
                 courseManagement.saveSectionsToFile(sections);
-
                 System.out.println("Section updated successfully!");
-
             } catch (ParseException e) {
                 System.out.println("Invalid date format.");
             }

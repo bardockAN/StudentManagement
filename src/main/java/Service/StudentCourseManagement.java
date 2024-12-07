@@ -16,7 +16,4 @@ public interface StudentCourseManagement {
     List<Course> getAllCourses();
     List<Section> getSectionsForStudentFromFile(String studentId);
 
-
-
-
 }

@@ -2,7 +2,6 @@ package Service;
 
 import Model.*;
 import java.io.*;
-import java.sql.SQLOutput;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,12 +52,12 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
 
     @Override
     public Section findSectionByCourseAndSemester(String courseId, String semester, int academicYear) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(TEACHERS_SECTIONS_FILE_PATH))) { // Đã sửa
+        try (BufferedReader reader = new BufferedReader(new FileReader(TEACHERS_SECTIONS_FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
 
-                if (data.length >= 9) { // Đảm bảo đủ dữ liệu
+                if (data.length >= 9) {
                     String startDateStr = data[0];
                     String endDateStr = data[1];
                     String taughtBy = data[2];
@@ -76,7 +75,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
                         Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateStr);
 
                         Course course = new Course(courseName, courseIdFromFile, department, level);
-                        /*System.out.println("Section found: " + courseName);*/
                         return new Section(startDate, endDate, taughtBy, semesterFromFile, academicYearFromFile, course);
                     }
                 } else {
@@ -105,7 +103,7 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
                         + section.getTaughtBy();
                 writer.write(line);
                 writer.newLine();
-                System.out.println("Enrolled section saved: " + line); // Debug line
+                System.out.println("Enrolled section saved: " + line);
             }
         } catch (IOException e) {
             System.out.println("Error saving enrolled sections: " + e.getMessage());
@@ -134,12 +132,11 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
         String studentId = null;
         String studentType = null;
 
-        // Đọc từ studentRegister.csv để lấy studentId và studentType
         try (BufferedReader reader = new BufferedReader(new FileReader(STUDENT_REGISTER_FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length >= 4 && data[0].equals(username)) { // username, password, studentId, studentType
+                if (data.length >= 4 && data[0].equals(username)) {
                     studentId = data[2];
                     studentType = data[3];
                     break;
@@ -158,7 +155,7 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length >= 4 && data[1].equals(studentId)) { // name, id, dOb, major
+                if (data.length >= 4 && data[1].equals(studentId)) {
                     String name = data[0];
                     Date dOb = new SimpleDateFormat("dd/MM/yyyy").parse(data[2]);
                     String major = data[3];
@@ -221,7 +218,7 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
                 }
 
                 String[] data = line.split(",");
-                if (data.length < 9) { // Đã sửa để đảm bảo đủ dữ liệu
+                if (data.length < 9) {
                     System.out.println("Invalid data format: " + line);
                     continue;
                 }
@@ -238,7 +235,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
 
                     if (section != null) {
                         enrolledSections.add(section);
-                        /*System.out.println("Added section: " + section.getCourse().getName());*/
                     } else {
                         System.out.println("Section not found for courseId: " + courseId + ", semester: " + semester + ", academicYear: " + academicYear);
                     }
