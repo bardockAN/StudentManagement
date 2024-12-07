@@ -21,7 +21,7 @@ public class Section {
         this.course = course;
     }
 
-    // Getters and Setters
+
     public Date getStartDate() {
         return startDate;
     }

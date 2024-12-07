@@ -31,7 +31,7 @@ public class MainMenu {
             System.out.println("+-----------------------------------+");
             System.out.println("|  1. Log in                        |");
             System.out.println("|  2. Register                      |");
-            System.out.println("|  3. Log out                       |");  // Thêm tùy chọn Log out
+            System.out.println("|  3. Log out                       |");
             System.out.println("|  4. Exit                          |");
             System.out.println("+-----------------------------------+");
             System.out.print("\nPlease enter your choice (1-4): ");
@@ -41,7 +41,7 @@ public class MainMenu {
             switch (choice) {
                 case "1" -> login();
                 case "2" -> register();
-                case "3" -> logout();  // Xử lý log out khi chọn 3
+                case "3" -> logout();
                 case "4" -> {
                     System.out.println("\n=====================================");
                     System.out.println("    THANK YOU FOR USING OUR SYSTEM   ");
@@ -196,15 +196,14 @@ public class MainMenu {
             String major = scanner.nextLine();
             UndergraduateStudent student = new UndergraduateStudent(name, id, dOb, major);
             new StudentCourseManagementImpl().saveStudentToCSV(student);
-        } else { // grad
+        } else {
             System.out.print("Enter graduate major: ");
             String major = scanner.nextLine();
             GraduateStudent student = new GraduateStudent(name, id, dOb, major);
             new StudentCourseManagementImpl().saveStudentToCSV(student);
         }
 
-        // Lưu username, password, studentId và studentType vào studentRegister.csv
-        saveToFile(STUDENT_REGISTER_FILE_PATH, username, password, id, studentType);
+        saveToFileForTeacher(STUDENT_REGISTER_FILE_PATH, username, password, id, studentType);
         System.out.println("Student registration successful!");
     }
 
@@ -239,7 +238,7 @@ public class MainMenu {
 
         new TeacherCourseManagementImpl().saveTeacherToCSV(username, password, teacher);
 
-        saveToFile(TEACHER_REGISTER_FILE_PATH, username, password);
+        saveToFileForStudent(TEACHER_REGISTER_FILE_PATH, username, password);
         System.out.println("Teacher registration successful!");
     }
 
@@ -257,7 +256,7 @@ public class MainMenu {
         return false;
     }
 
-    private static void saveToFile(String filePath, String username, String password) {
+    private static void saveToFileForStudent(String filePath, String username, String password) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(username + "," + password); // Lưu username và password
             writer.newLine();
@@ -266,7 +265,7 @@ public class MainMenu {
         }
     }
 
-    private static void saveToFile(String filePath, String username, String password, String studentId, String studentType) {
+    private static void saveToFileForTeacher(String filePath, String username, String password, String studentId, String studentType) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(username + "," + password + "," + studentId + "," + studentType);
             writer.newLine();

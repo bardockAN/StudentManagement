@@ -16,63 +16,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
     private static final String COURSES_FILE_PATH = "D:\\Java\\StudentManagement\\src\\main\\database\\courses.csv";
     private static final String STUDENT_REGISTER_FILE_PATH = "D:\\Java\\StudentManagement\\src\\main\\database\\studentRegister.csv";
 
-   /* @Override
-    public void enrollSection(String studentId, String courseId, String semester, int academicYear) {
-        Person student = findStudentById(studentId);
-        if (student == null) {
-            System.out.println("Enrollment failed. Student not found.");
-            return;
-        }
-
-        // Tìm kiếm Section từ Course, semester và academicYear
-        Section sectionToEnroll = findSectionByCourseAndSemester(courseId, semester, academicYear);
-        if (sectionToEnroll == null) {
-            System.out.println("Section not found for the given criteria.");
-            return;
-        }
-
-        // Kiểm tra xem sinh viên đã đăng ký chưa
-        List<Section> enrolledSections = getSectionsForStudentFromFile(studentId);
-        if (enrolledSections.contains(sectionToEnroll)) {
-            System.out.println("You are already enrolled in this section.");
-            return;
-        }
-
-        // Lưu thông tin đăng ký vào file studentSections.csv
-        saveEnrolledSectionsToFile(studentId, List.of(sectionToEnroll));
-        System.out.println("Successfully enrolled in the section: " + sectionToEnroll.getCourse().getName());
-    }
-
-
-
-    @Override
-    public void unrollSection(String studentId, String courseId, String semester, int academicYear) {
-        Person student = findStudentById(studentId);
-        if (student == null) {
-            System.out.println("Unroll failed. Student not found.");
-            return;
-        }
-
-        // Tìm kiếm Section từ Course, semester và academicYear
-        Section sectionToUnroll = findSectionByCourseAndSemester(courseId, semester, academicYear);
-        if (sectionToUnroll == null) {
-            System.out.println("Section not found for the given criteria.");
-            return;
-        }
-
-        // Lấy danh sách các section sinh viên đã đăng ký từ file
-        List<Section> enrolledSections = getSectionsForStudentFromFile(studentId);
-        if (enrolledSections.contains(sectionToUnroll)) {
-            enrolledSections.remove(sectionToUnroll);
-            saveEnrolledSectionsToFile(studentId, enrolledSections);
-            System.out.println("Successfully unrolled from the section: " + sectionToUnroll.getCourse().getName());
-        } else {
-            System.out.println("Section not found in enrolled sections.");
-        }
-    }*/
-
-
-
     @Override
     public List<Section> getAllAvailableSections() {
         List<Section> sections = new ArrayList<>();
@@ -106,7 +49,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
             System.out.println("Error reading sections file: " + e.getMessage());
         }
         return sections;
-
     }
 
     @Override
@@ -148,8 +90,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
         return null;
     }
 
-
-
     @Override
     public void saveEnrolledSectionsToFile(String studentId, List<Section> sections) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ENROLLED_SECTIONS_FILE_PATH, true))) {
@@ -171,52 +111,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
             System.out.println("Error saving enrolled sections: " + e.getMessage());
         }
     }
-
-
-
-    @Override
-    public Person findStudentById(String studentId) {
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(STUDENTS_FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data[1].equals(studentId)) {
-                    Date dOb = null;
-                    try {
-                        dOb = new SimpleDateFormat("dd/MM/yyyy").parse(data[2]);
-                    } catch (ParseException e) {
-                        System.out.println("Error parsing date: " + e.getMessage());
-                        continue;
-                    }
-
-                    if (data.length > 3) {
-                        String major = data[3];
-                        if (major != null) {
-                            return new UndergraduateStudent(data[0], data[1], dOb, major);
-                        }
-                    } else {
-                        return new Person(data[0], data[1], dOb);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading student data: " + e.getMessage());
-        }
-        return null;
-    }
-
-    @Override
-    public Course findCourseById(String courseId) {
-        List<Course> courses = getAllCourses();
-        for (Course course : courses) {
-            if (course.getCourseId().equals(courseId)) {
-                return course;
-            }
-        }
-        return null;
-    }
-
 
     @Override
     public void saveStudentToCSV(Person student) {
@@ -260,7 +154,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
             return null;
         }
 
-        // Đọc thông tin chi tiết từ students.csv dựa trên studentId
         try (BufferedReader reader = new BufferedReader(new FileReader(STUDENTS_FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -283,12 +176,9 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
         } catch (IOException | ParseException e) {
             System.out.println("Error reading student data file: " + e.getMessage());
         }
-
         System.out.println("Student details not found for student ID: " + studentId);
         return null;
     }
-
-
 
     @Override
     public List<Course> getAllCourses() {
@@ -318,7 +208,6 @@ public class StudentCourseManagementImpl implements StudentCourseManagement {
 
         return courses;
     }
-
 
     @Override
     public List<Section> getSectionsForStudentFromFile(String studentId) {

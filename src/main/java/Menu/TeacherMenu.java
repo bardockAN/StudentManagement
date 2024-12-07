@@ -168,6 +168,8 @@ public class    TeacherMenu {
             String startDateStr = scanner.nextLine();
             System.out.print("Enter new end date (dd/MM/yyyy): ");
             String endDateStr = scanner.nextLine();
+            System.out.println("Enter new Lecturer's Name: ");
+
 
             try {
                 Date newStartDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDateStr);
@@ -191,11 +193,6 @@ public class    TeacherMenu {
             System.out.println("Section not found.");
         }
     }
-
-
-
-
-
 
     private void removeSection() {
         System.out.print("Enter Course ID for the section: ");

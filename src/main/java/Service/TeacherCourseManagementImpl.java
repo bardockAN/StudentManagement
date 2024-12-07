@@ -22,7 +22,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         saveCourseToFile(courses);
     }
 
-
     @Override
     public void editCourse(String courseId, String newName, String newDepartment, String newLevel) {
         List<Course> courses = getAllCourses();
@@ -48,7 +47,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         }
     }
 
-
     @Override
     public void removeCourse(String courseId) {
         List<Course> courses = getAllCourses();
@@ -70,7 +68,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         }
     }
 
-
     @Override
     public Course findCourseById(String courseId) {
         List<Course> courses = getAllCourses();
@@ -81,7 +78,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         }
         return null;
     }
-
 
     @Override
     public List<Course> getAllCourses() {
@@ -131,7 +127,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         }
     }
 
-
     @Override
     public Teacher findTeacherDetails(String username) {
         try (BufferedReader reader = new BufferedReader(new FileReader(TEACHERS_FILE_PATH))) {
@@ -151,9 +146,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         return null;
     }
 
-
-
-
     @Override
     public Teacher findTeacherByUsername(String username, String password) {
         try (BufferedReader reader = new BufferedReader(new FileReader(TEACHER_REGISTER_FILE_PATH))) {
@@ -170,7 +162,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         return null;
     }
 
-
     @Override
     public void addSection(Section section) {
         List<Section> sections = getAllSections();
@@ -180,21 +171,14 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
 
     @Override
     public void editSection(String courseId, String semester, int academicYear, Date newStartDate, Date newEndDate) {
-        // Lấy danh sách tất cả các section
         List<Section> listSections = getAllSections();
-
-        // Tìm section cần chỉnh sửa
         for(Section section : listSections) {
-
             if(courseId.equals(section.getCourse().getCourseId()) && section.getSemester().equals(semester) && section.getAcademicYear() == academicYear)  {
-                // Cập nhật thông tin section
                 section.setStartDate(newStartDate);
                 section.setEndDate(newEndDate);
             }
         }
-        // Lưu lại danh sách sections đã được cập nhật vào file
-        saveSectionsToFile(listSections);  // Lưu danh sách mới vào file
-
+        saveSectionsToFile(listSections);
     }
 
     @Override
@@ -206,11 +190,9 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
                     sectionsToRemove.add(section);
                 }
             }
-            // Lưu lại danh sách sections đã được cập nhật vào file
-            saveSectionsToFile(sectionsToRemove);  // Lưu danh sách mới vào file
+            saveSectionsToFile(sectionsToRemove);
 
         }
-
 
     @Override
     public void saveSectionsToFile(List<Section> sections) {
@@ -226,7 +208,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
                 String department = section.getCourse().getDepartment();
                 String level = section.getCourse().getLevel();
 
-                // Lưu thông tin vào file CSV
                 writer.write(startDate + "," + endDate + "," + taughtBy + "," + semester + "," + academicYear
                         + "," + courseName + "," + courseId + "," + department + "," + level);
                 writer.newLine();
@@ -236,7 +217,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
             System.out.println("Error saving sections to file: " + e.getMessage());
         }
     }
-
 
     @Override
     public Section findSectionByCourseAndSemester(String courseId, String semester, int academicYear) {
@@ -248,7 +228,6 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         }
         return null;
     }
-
 
     @Override
     public List<Section> getAllSections() {
@@ -284,6 +263,5 @@ public class TeacherCourseManagementImpl implements TeacherCourseManagement{
         }
         return sections;
     }
-
 
 }
